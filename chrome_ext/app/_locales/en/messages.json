@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "PROspective",
+    "description": "Automatically store candidates' linkedin info as you browse and favorite/bookmark promising candidates"
+  },
+  "appDescription": {
+    "message": "Browser plugin to capture prospective candidates' information",
+    "description": "Automatically store candidates' linkedin info as you browse and favorite/bookmark promising candidates"
+  }
+}

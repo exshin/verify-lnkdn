@@ -1,0 +1,269 @@
+/* General styles for all menus */
+
+.cbp-spmenu {
+	background: lightgrey;
+	position: fixed;
+	/*font-family: 'Open Sans', sans-serif !important; */
+	font-family: helvetica;
+	font: 12px/1.3 helvetica !important;
+    box-sizing: content-box !important;
+    color: #585858;
+    z-index: 10000000001 !important;
+    overflow-x: hidden;
+}
+
+.cbp-spmenu h3 {
+	color: white;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	background: rgba(0,51,102,.8);
+}
+
+#showRight {
+	background: #F05940;
+	color: #F05940;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+	width: 310px;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+	overflow: auto;
+}
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: auto;
+}
+
+.cbp-spmenu-horizontal h3 {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+	left: -280px;
+}
+
+.cbp-spmenu-right {
+	right: -280px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -150px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 0px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: auto;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 310px;
+}
+
+.cbp-spmenu-push-toleft {
+	padding-right: 310px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.cbp-spmenu-top {
+		top: -110px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.cbp-spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+	}
+
+	.cbp-spmenu-left,
+	.cbp-spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.cbp-spmenu-right {
+		right: -190px;
+	}
+
+	.cbp-spmenu-push-toright {
+		left: 190px;
+	}
+}
+
+/* Fonts and Sizing for IDs */
+.sutro_info_cards {
+	margin-bottom: 4px;
+	background-color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: none;
+	float: left;
+	width: 100%;
+}
+#sutro_profile_card {
+	margin-right: 7px;
+}
+.sutro_card_titles {
+	padding-left: 7px;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+#my_rating_label {
+    float: right;
+    font-size: 11px;
+    margin-right: 50px;
+    margin-top: 4px;
+    color: black;
+}
+.sutro_employment_row,.sutro_education_row,.sutro_activity_row,
+#sutro_contact_row,.sutro_application_row {
+	font-size: 12px;
+	padding-left: 7px;
+	margin-bottom: 7px;
+	padding-right: 3px;
+	margin-right: 14px;
+}
+.sutro_application_row {
+	float: left;
+	width: 90%;
+}
+.sutro_employment_dates,.sutro_education_dates {
+	font-size: 11px;
+	padding-left: 20px;
+	margin-bottom: 4px;
+	font-style: italic;
+}
+.sutro_employment_company {
+	font-size: 14px;
+	padding-left: 20px;
+	margin-bottom: 2px;
+}
+.sutro_employment_title {
+	font-size: 12px;
+	padding-left: 20px;
+	margin-bottom: 2px;
+}
+.sutro_education_major_year {
+	font-size: 11px;
+	padding-left: 26px;
+	margin-bottom: 2px;
+}
+.sutro_employment_descriptions {
+	font-size: 10px;
+	padding-left: 20px;
+	margin-bottom: 10px;
+}
+.activity_icons {
+	margin-right: 8px;
+	padding-left: 10px;
+}
+.sutro_date_header {
+	font-size: 11px;
+	color: steelblue;
+	padding-left: 14px;
+	margin-bottom: 2px;
+	font-style: italic;
+}
+.sutro_activity_content {
+	margin-bottom: 6px;
+}
+.sutro_tag_labels {
+	float: left;
+	font-size: 8px !important;
+	height: 15px !important;
+	margin-bottom: 5px !important;
+}
+.sutro_social_labels {
+	float: left;
+	font-size: 14px !important;
+	padding-top: 3px !important;
+	height: 20px !important;
+	margin-bottom: 5px !important;
+	margin-right: 4px !important;
+}
+#success_added_to_job {
+	margin-left: 30px;
+	margin-right: 20px;
+	margin-bottom:7px;
+	font-size: 10px; 
+	display: none;
+}
+.connect_grey_card {
+	width: 96% !important; 
+	font-size: 12px !important;
+	min-height: 0px !important;
+	margin-bottom: 5px !important;
+}
+.grey_icons {
+	margin-right: 10px !important;
+}
+.grey-notice {
+	font-size: 12px;
+	margin-left: 20px;
+	margin-right: 10px;
+	color: red;
+}
+img {
+	box-sizing: content-box;
+}

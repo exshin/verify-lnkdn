@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connect | Riviera Partners</title>
+    <link href="styles/semantic.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="styles/popup.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="styles/rateit.css" media="screen" rel="stylesheet" type="text/css">
+      <script src="scripts/jquery.min.js"></script>
+      <script src="scripts/jquery.rateit.min.js"></script>
+      <script src="scripts/jquery-ui.js"></script>
+      <script src="scripts/underscore.js"></script>
+      <script src="scripts/utils.js"></script>
+      <script src="scripts/requests.js"></script>
+      <script src="scripts/popup.js"></script>
+      <script src="scripts/semantic.min.js"></script>
+      <script src="scripts/spinner.min.js"></script>
+      <script src="scripts/sutroapi.js"></script>
+      <!--<script src="scripts/log_todo.js"></script>-->
+      <script src="scripts/add_activity.js"></script>
+      <script src="scripts/add_to_job.js"></script>
+    </head>
+    <body>
+      <div class="ui inverted fixed menu centered" style="margin-bottom:0px">
+        <!--
+        <div class="ui right floated item" style="padding-left:0px; padding-right:0px; padding-top:3px" id="logout">
+          <a class="item" id="logout_button" style="padding-left:5px; padding-right:5px">
+            <i class="large sign out icon"></i>
+          </a>
+        </div>
+        -->
+        <!--
+        <div class="ui right floated item" style="padding-left:0px; padding-right:0px; padding-top:3px" id="options_header">
+          <a class="item" id="options_button" style="padding-left:5px; padding-right:5px">
+            <i class="large setting icon"></i>
+          </a>
+        </div>
+        -->
+        <div class="ui right floated item" style="padding-left:0px; padding-right:0px; padding-top:3px; display:none;" id="admin_switch">
+          <a class="item" id="admin_button" style="padding-left:5px; padding-right:5px">
+            <i class="large sign out icon"></i>
+          </a>
+        </div>
+        <div class="ui left floated item" style="padding:0px; margin-top:3px; margin-left:3px" id="home">
+          <a class="item" target="_blank" href="https://connect.riviapps.com" style="padding-left:5px; padding-right:5px">
+            <i class="large home icon"></i>
+          </a>
+        </div>
+        <div class="ui left floated item" style="display:none" id="connect_logo">
+          <img src="images/logo-connect-inverted.png" height="40"/>
+        </div>
+        <div class="ui left floated item" style="display:none; width:333px" id="header_menu">
+          <a target="_blank" class="person-name"></a>
+          <p class="current-employment-title" id="current-employment"></p>
+          <p class="current-employment-company" id="current-employment"></p>
+        </div>
+      </div>
+      <div class="ui ignored divider" style="margin-top:0px"></div>
+      <div class="prospective-main">
+        <div id="container">
+          <div id="spinner_loader" style="display:block;"></div>
+          <div id="grey_spinner" style="display:none;"></div>
+          <div id="activities_and_notes" style="display:none;">
+            <div class="ui small accordion">
+              <div class="active title">
+                <i class="dropdown icon"></i>
+                Basic Info
+                <div class="small ui orange label" id="new_tag" style="float: right; display: none;">
+                  New
+                </div>
+              </div>
+              <div class="active content" id="contact_info">
+              </div>
+              <div class="title">
+                <i class="dropdown icon"></i>
+                Notes
+              </div>
+              <div class="content" id="person_notes">
+              </div>
+              <div class="title">
+                <i class="dropdown icon"></i>
+                Recent Activity <div class="small ui lightblue label" style="float:right" id="activity_count"></div>
+                <div class="last_activity_label" id="last_activity_date">None</div>
+              </div>
+              <div class="content" id="recent_activities">
+              </div>
+            </div>
+          </div>
+          <div id="grey_candidate_panel" style="display:none;">
+          </div>
+          <div class="clearfix"></div>
+          
+          <div class="1 fluid ui buttons" id="control_box" style="display: none; margin-top: 15px">
+            <!--<div class="tiny ui animated fade button" id="log_inmail">
+              <div class="visible content">
+                <i class="chat outline icon"></i>
+              </div>
+              <div class="hidden content hoverover-button">
+                Log an Inmail
+              </div>
+            </div>-->
+            <div class="tiny ui animated fade button" id="add_to_job_button">
+              <div class="visible content">
+                <i class="bookmark icon"></i>
+              </div>
+              <div class="hidden content hoverover-button">
+                Add to Job
+              </div>
+            </div>
+          </div>
+        
+          <div id="log_inmail_form" style="display:none; margin-bottom:0px;">
+            <div class="ui segment">
+              <div id="inmail_form"></div>
+            </div>
+          </div>
+          <div id="log_todo" style="display:none; margin-bottom:50px;">
+            <div class="ui segment">
+              <div class="ui small form">
+                <div class="date field">
+                  <label>Scheduled Date</label>
+                  <input type="text" placeholder="xx/xx/xxxx">
+                </div>
+                <div class="ui small selection dropdown">
+                  <input type="hidden" name="todo_type">
+                  <div class="default text">To Do</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item" data-value="1">Reach out</div>
+                    <div class="item" data-value="0">Follow up</div>
+                  </div>
+                </div>
+                <div class="ui small green button" style="float:right;">
+                  Create
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="add_to_job" style="display:none; margin-bottom:50px;">
+            <div class="ui segment">
+              <div id="add_success" style="display:none; text-align:center;">
+                <div class="ui small green label">Added to Job</div>
+              </div>
+              <div id="job_list"></div>
+            </div>
+          </div>
+        
+        </div>
+        <div id="no-results" style="display: none; text-align: center;">
+          <p>No profile found for this page</p>
+        </div>
+        <div id="no-data" style="display: none; text-align: center;">
+          <p>Error: No candidate data for this profile</p>
+        </div>
+        <div id="no-match" style="display: none; text-align: center;">
+          <p>Not enough data to make a match</p>
+        </div>
+        <div id="error" style="display: none; text-align: center;">
+          <p>Error - Please click the button below.</p>
+          <div class="ui small green button" id="logout_fix">
+            Logout and Refresh Settings
+          </div>
+        </div>
+        <div id="crawl" style="display: none; text-align: center;">
+          <h5 style="color:black; padding:10px">Warning - Crawling will take several hours. Enter your Linkedin Credentials and click the button below to begin.</h5>
+          <div class="ui fluid small form segment" id="login_form">
+            <div class="fields">
+              <div class="field" style="width:100%">
+                <label>Linkedin Email</label>
+                <input placeholder="Email" type="text" id="user_linkedin_email">
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field" style="width:60%">
+                <label>Linkedin Password</label>
+                <input placeholder="Password" type="password" id="user_linkedin_password">
+              </div>
+              <div class="field" style="width:40%">
+                <label>Crawl Limit</label>
+                <input placeholder="Limit Number" type="text" id="crawl_limit">
+              </div>
+            </div>
+            <div class="ui small green button" type="submit" id="crawl_start">
+              Start Crawling!
+            </div>
+            </div>
+          </div>
+        </div>
+        <div id="emails" style="display: none; padding-top: 5px;padding-left: 15px;padding-right: 15px;padding-bottom: 15px;">
+          <h5 style="color:black;">Please Log In with your Sutro Account</h5>
+          <div class="ui fluid form segment" id="login_form">
+            <div class="two fields">
+              <div class="field">
+                <label>Rivi Email</label>
+                <input placeholder="Email" type="text" id="user_email">
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input placeholder="Password" type="password" id="user_password">
+              </div>
+              <div class="tiny orange ui submit button" type="submit" id="login_click">Log In</div>
+            </div>
+          </div>
+        </div>
+        <div id="options" style="display:none; padding-left:10px; padding-top:50px">
+          <h3 style="color:black; padding-left:5px" >Options</h3>
+          <div id="recruiter_logging">
+            <p id="currently_logging_as" style="padding-left:5px"></p>
+            <form id="recruiter_log_select" class="ui form search" style="width:80%">
+              <field id="recruiter-search" class="field" style="font-size:12px">
+                <input class="prompt" type="text" name="recruiter_search" placeholder="Log InMails As.." id="search-term" auto-complete="no"/>
+                <div class="results"></div>
+              </field>
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

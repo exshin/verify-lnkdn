@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linkedin - Auto Verify 2 Factor Authentication</title>
+    <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="styles/popup.css" media="screen" rel="stylesheet" type="text/css">
+      <script src="scripts/jquery.min.js"></script>
+      <script src="scripts/jquery-ui.js"></script>
+      <script src="scripts/underscore.js"></script>
+      <script src="scripts/bootstrap.js"></script>
+      <script src="scripts/popup.js"></script>
+    </head>
+    <body>
+      <div class="nav nav-pills nav-stacked" style="margin-bottom:0px; background-color:cornflowerblue">
+        <div class="container-fluid" id="popup-title">
+          <h3>Linkedin - Auto Verifier</h3>
+        </div>
+      </div>
+      <div class="popup-content" style="padding:7px;">
+        <div id="login-form" style="display:block;">
+          <form name="login-form" style="padding-left:15px; padding-right:15px" novalidate>
+            <h5>Please Log in with your Google Voice Account</h5>
+            <div class="form-group" id="login-form-group">
+              <input type="email" class="form-control" placeholder="Email Address" id="email_input">
+              <input type="password" class="form-control" placeholder="Password" id="password_input">
+            </div>
+            <button class="btn btn-primary" id="login_button">Log In</button>
+          </form>
+        </div>
+        <div id="user-display" style="display:none;">
+          <br/>
+          <div class="btn btn-default" style="width:100%" id="user-logout-button">
+            <div style="float:left">Log out: User</div>
+            <span class="glyphicon glyphicon-off" style="float:right"></span>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

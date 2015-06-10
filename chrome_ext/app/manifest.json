@@ -1,0 +1,52 @@
+{
+  "name": "Lnkdn-AutoVerify",
+  "version": "0.1.0.0",
+  "manifest_version": 2,
+  "description": "__MSG_appDescription__",
+  "default_locale": "en",
+  "browser_action": {
+    "default_title": "Lnkdn-AutoVerify",
+    "default_icon": "images/key.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/key_favicon.ico"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://linkedin.com/*"],
+      "js": [
+        "scripts/jquery.min.js",
+        "scripts/underscore.js",
+        "scripts/bootstrap.js",
+        "scripts/popup.js",
+        "scripts/background.js"
+      ],
+      "css": [
+        "css/extension.css",
+        "css/bootstrap.css",
+        "css/bootstrap-theme.css"
+        ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": ["scripts/jquery.min.js","scripts/underscore.js","scripts/popup.js","scripts/background.js"
+    ]
+  },
+  "web_accessible_resources": [
+    "images/*",
+    "scripts/underscore-min.map",
+    "fonts/*"
+  ],
+  "permissions": [
+    "tabs",
+    "history",
+    "management",
+    "http://*/*",
+    "unlimitedStorage",
+    "https://*/*",
+    "background",
+    "storage"
+  ]
+}
