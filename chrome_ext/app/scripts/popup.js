@@ -41,25 +41,21 @@ function login() {
         console.log(email,password);
         localStorage.setItem('gvoice_email', email);
         localStorage.setItem('gvoice_password', password);
-        $('#login-form').hide();
-        $('user-logout-button').text('Log out: '+email);
-        $('#user-display').show();
+        chrome.storage.local.set({
+            gvoice: {
+                email: email,
+                password: password,
+                authenticated: true
+            }
+        },  function() {
+            console.log('Logged In');
+            $('#login-form').hide();
+            $('user-logout-button').text('Log out: '+email);
+            $('#user-display').show();
+        });
     }
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.method == "getEmail")
-      sendResponse({status: localStorage.getItem('gvoice_email')});
-    else
-      sendResponse({}); // snub them.
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.method == "getPassword")
-      sendResponse({status: localStorage.getItem('gvoice_password')});
-    else
-      sendResponse({}); // snub them.
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     build_popup();

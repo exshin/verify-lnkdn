@@ -14,7 +14,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://linkedin.com/*"],
+      "matches": ["*://*/*"],
       "js": [
         "scripts/jquery.min.js",
         "scripts/underscore.js",

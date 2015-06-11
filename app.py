@@ -4,6 +4,7 @@
 import os
 import requests
 import json
+import time
 from flask import Flask, make_response, render_template, request, jsonify
 from flask import send_from_directory, session, url_for, redirect
 from datetime import datetime, timedelta
@@ -18,19 +19,24 @@ def index():
 
 @app.route('/home')
 def home():
-  return render_template('home.html',
-            email=email)
+  return render_template('home.html')
 
-@app.route('/passcode/', methods=['POST'])
+@app.route('/passcode/', methods=['POST','GET'])
 def get_passcode():
   # get passcode
-  data = request.args.get('data', {})
-  email = data.get('email')
-  password = data.get('password')
-  passcode = None
-  if email and password:
-    passcode = get_code(email, password)
-  return jsonify({'passcode': passcode})
+  if request.method == 'GET':
+    pass
+  if request.method == 'POST':
+    data = request.form
+    email = data.get('email')
+    password = data.get('password')
+    passcode = None
+    if email and password:
+      time.sleep(3)
+      passcode = get_code(email, password)
+      print passcode
+    return jsonify({'passcode': passcode})
+
 
 @app.route('/favicon.ico')
 def favicon():
