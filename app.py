@@ -32,14 +32,13 @@ def get_passcode():
   if request.method == 'POST':
     data = request.args
     print data
-    email = data.get('email')
-    password = data.get('password')
+    email = str(data.get('email'))
+    password = str(data.get('password'))
     print email, password
     passcode = None
     if email and password:
       time.sleep(1)
       passcode = get_code(email, password)
-      passcode = 12345
       print passcode
     return jsonify({'passcode': passcode})
 
