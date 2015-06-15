@@ -77,6 +77,8 @@ function $get_passcode(callback, failback) {
                 callback(response);
             }).fail(function(response2) {
                 console.log(response2.responseText);
+                $('#passcode-wait').hide();
+                $('#passcode-error').show();
             });
         }
     });
@@ -100,6 +102,7 @@ function show_passcode() {
                     console.log('Stored Passcode');
                 });
             } else {
+                $('#passcode-wait').hide();
                 $('#passcode-error').show();
             }
         });

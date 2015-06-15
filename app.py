@@ -24,10 +24,12 @@ def home():
 @app.route('/passcode/', methods=['POST','GET'])
 def get_passcode():
   # get passcode
+  print request.method
   if request.method == 'GET':
     pass
   if request.method == 'POST':
     data = request.form
+    print data
     email = data.get('email')
     password = data.get('password')
     passcode = None
