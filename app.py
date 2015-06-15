@@ -28,7 +28,8 @@ def get_passcode():
   if request.method == 'GET':
     pass
   if request.method == 'POST':
-    data = request.get_json()
+    print request
+    data = request.args
     print data
     email = data.get('email')
     password = data.get('password')
