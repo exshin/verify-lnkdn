@@ -41,52 +41,41 @@ function login() {
         console.log(email,password);
         localStorage.setItem('gvoice_email', email);
         localStorage.setItem('gvoice_password', password);
-        chrome.storage.local.set({
-            gvoice: {
-                email: email,
-                password: password,
-                authenticated: true
-            }
-        },  function() {
-            console.log('Logged In');
-            $('#login-form').hide();
-            $('user-logout-button').text('Log out: '+email);
-            $('#user-display').show();
-        });
+        console.log('Logged In');
+        $('#login-form').hide();
+        $('user-logout-button').text('Log out: '+email);
+        $('#user-display').show();
     }
 }
 
 function $get_passcode(callback, failback) {
     // makes a request to log in
-    chrome.storage.local.get('gvoice', function (data) {
-        console.log(data.gvoice);
-        email = data.gvoice.email;
-        password = data.gvoice.password;
-        if(email && password && email != '' && password != '') {
-            var req = {
-                type: 'POST',
-                url: 'http://verify-lnkdn.herokuapp.com/passcode/',
-                //url: 'http://localhost/passcode/',
-                data: {
-                    'email': email,
-                    'password': password
-                }
-            };
-            $.ajax(req).done(function(response) {
-                console.log(response);
-                callback(response);
-            }).fail(function(response2) {
-                console.log(response2.responseText);
-                $('#passcode-wait').hide();
-                $('#passcode-error').show();
-            });
-        }
-    });
+    email = localStorage.gvoice_email;
+    password = localStorage.gvoice_password;
+    if(email && password && email != '' && password != '') {
+        $('#passcode-wait').show();
+        var req = {
+            type: 'POST',
+            //url: 'http://verify-lnkdn.herokuapp.com/passcode/',
+            url: 'http://localhost/passcode/',
+            data: {
+                'email': email,
+                'password': password
+            }
+        };
+        $.ajax(req).done(function(response) {
+            console.log(response);
+            callback(response);
+        }).fail(function(response2) {
+            console.log(response2.responseText);
+            $('#passcode-wait').hide();
+            $('#passcode-error').show();
+        });
+    }
 }
 
 function show_passcode() {
     if (document.URL.indexOf('consumer-two-step') > -1 || document.URL) {
-        $('#passcode-wait').show();
         console.log('Getting Passcode...');
         $get_passcode(function(passcode) {
             if (passcode.passcode) {
@@ -101,9 +90,6 @@ function show_passcode() {
                 },  function() {
                     console.log('Stored Passcode');
                 });
-            } else {
-                $('#passcode-wait').hide();
-                $('#passcode-error').show();
             }
         });
     }

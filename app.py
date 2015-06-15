@@ -5,6 +5,7 @@ import os
 import requests
 import json
 import time
+import logging
 from flask import Flask, make_response, render_template, request, jsonify
 from flask import send_from_directory, session, url_for, redirect
 from datetime import datetime, timedelta
@@ -12,6 +13,8 @@ from verify_lnkdn import *
 
 
 app = Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
 def index():
@@ -30,8 +33,9 @@ def get_passcode():
     if request.method == 'POST':
       data = request.args
       print data
-      email = request.args.get('email')
-      password = request.args.get('password')
+      email = data.get('email')
+      password = data.get('password')
+      print email, password
       passcode = None
       if email and password:
         time.sleep(1)
@@ -40,6 +44,7 @@ def get_passcode():
       return jsonify({'passcode': passcode})
   except Exception as error:
     print error
+    return jsonify({'error': str(error)})
 
 
 @app.route('/favicon.ico')
