@@ -29,10 +29,9 @@ def get_passcode():
       pass
     if request.method == 'POST':
       data = request.args
-      json_data = request.json
-      print data, json_data
-      email = json_data.get('email')
-      password = json_data.get('password')
+      print data
+      email = request.args.get('email')
+      password = request.args.get('password')
       passcode = None
       if email and password:
         time.sleep(1)
