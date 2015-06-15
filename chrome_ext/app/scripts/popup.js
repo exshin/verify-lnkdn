@@ -30,6 +30,9 @@ function build_logout() {
         localStorage.clear();
         $('#login-form').show();
         $('#user-display').hide();
+        $('#passcode-display').hide();
+        $('#passcode-wait').hide();
+        $('#passcode-error').hide();
     });
 }
 
@@ -56,8 +59,8 @@ function $get_passcode(callback, failback) {
         $('#passcode-wait').show();
         var req = {
             type: 'POST',
-            //url: 'http://verify-lnkdn.herokuapp.com/passcode/',
-            url: 'http://localhost/passcode/',
+            url: 'http://verify-lnkdn.herokuapp.com/passcode/',
+            //url: 'http://localhost/passcode/',
             data: {
                 'email': email,
                 'password': password
@@ -90,6 +93,11 @@ function show_passcode() {
                 },  function() {
                     console.log('Stored Passcode');
                 });
+            } else {
+                if (localStorage.gvoice_email) {
+                    $('#passcode-wait').hide();
+                    $('#passcode-error').show();
+                }
             }
         });
     }
