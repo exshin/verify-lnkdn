@@ -24,21 +24,22 @@ def home():
 @app.route('/passcode/', methods=['POST','GET'])
 def get_passcode():
   # get passcode
-  print request.method
-  if request.method == 'GET':
-    pass
-  if request.method == 'POST':
-    print request
-    data = request.args
-    print data
-    email = data.get('email')
-    password = data.get('password')
-    passcode = None
-    if email and password:
-      time.sleep(1)
-      passcode = get_code(email, password)
-      print passcode
-    return jsonify({'passcode': passcode})
+  try:
+    if request.method == 'GET':
+      pass
+    if request.method == 'POST':
+      data = request.args[0]
+      print data
+      email = data.get('email')
+      password = data.get('password')
+      passcode = None
+      if email and password:
+        time.sleep(1)
+        passcode = get_code(email, password)
+        print passcode
+      return jsonify({'passcode': passcode})
+  except Exception as error:
+    print error
 
 
 @app.route('/favicon.ico')
