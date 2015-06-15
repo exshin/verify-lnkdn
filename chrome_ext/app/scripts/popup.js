@@ -56,9 +56,61 @@ function login() {
     }
 }
 
+function $get_passcode(callback, failback) {
+    // makes a request to log in
+    chrome.storage.local.get('gvoice', function (data) {
+        console.log(data.gvoice);
+        email = data.gvoice.email;
+        password = data.gvoice.password;
+        if(email && password && email != '' && password != '') {
+            var req = {
+                type: 'POST',
+                url: 'http://verify-lnkdn.herokuapp.com/passcode/',
+                //url: 'http://localhost/passcode/',
+                data: {
+                    'email': email,
+                    'password': password
+                }
+            };
+            $.ajax(req).done(function(response) {
+                console.log(response);
+                callback(response);
+            }).fail(function(response2) {
+                console.log(response2.responseText);
+            });
+        }
+    });
+}
+
+function show_passcode() {
+    if (document.URL.indexOf('consumer-two-step') > -1 || document.URL) {
+        $('#passcode-wait').show();
+        console.log('Getting Passcode...');
+        $get_passcode(function(passcode) {
+            if (passcode.passcode) {
+                console.log('Retrieved Passcode: ', passcode.passcode);
+                $('#passcode-display').html('<br/><div id="passcode_text">Last Passcode: '+passcode.passcode+'</div>');
+                $('#passcode-wait').hide();
+                $('#passcode-display').show();
+                chrome.storage.local.set({
+                    passcode: {
+                        linkedin: passcode
+                    }
+                },  function() {
+                    console.log('Stored Passcode');
+                });
+            } else {
+                $('#passcode-error').show();
+            }
+        });
+    }
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     build_popup();
     build_login();
     build_logout();
+    show_passcode();
 });

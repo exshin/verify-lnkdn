@@ -7,3 +7,15 @@ body {
     font-weight: 100;
     margin:0px;
 }
+
+#passcode-display {
+    margin-left: 15px;
+}
+
+#passcode-error {
+    margin-left: 15px;
+}
+
+#passcode-wait {
+    margin-left: 15px;
+}

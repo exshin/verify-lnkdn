@@ -32,7 +32,7 @@ def get_passcode():
     password = data.get('password')
     passcode = None
     if email and password:
-      time.sleep(3)
+      time.sleep(1)
       passcode = get_code(email, password)
       print passcode
     return jsonify({'passcode': passcode})
